@@ -1,0 +1,416 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <!-- Modern, attractive Google Fonts -->
+    <link rel="stylesheet" as="style" onload="this.rel='stylesheet'"
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@500;700&family=Inter:wght@400;600&display=swap" />
+    <title>Safari Itinerary</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Font utility classes */
+        .font-display {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .font-sans {
+            font-family: 'Montserrat', 'Inter', Arial, sans-serif;
+        }
+
+        .font-body {
+            font-family: 'Inter', 'Montserrat', Arial, sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-[#fcfaf8] font-body">
+    <div class="min-h-screen flex flex-col">
+        <!-- Header -->
+        <header
+            class="flex items-center justify-between border-b border-[#f3ede7] px-4 md:px-10 py-3 bg-white/80 sticky top-0 z-20">
+            <div class="flex items-center justify-between w-full max-w-3xl mx-auto">
+                <!-- Logo and Title -->
+                <div class="flex items-center gap-4 text-[#1b150d]">
+                    <div class="size-4">
+                        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M13.8261 30.5736C16.7203 29.8826 20.2244 29.4783 24 29.4783C27.7756 29.4783 31.2797 29.8826 34.1739 30.5736C36.9144 31.2278 39.9967 32.7669 41.3563 33.8352L24.8486 7.36089C24.4571 6.73303 23.5429 6.73303 23.1514 7.36089L6.64374 33.8352C8.00331 32.7669 11.0856 31.2278 13.8261 30.5736Z"
+                                fill="currentColor"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M39.998 35.764C39.9944 35.7463 39.9875 35.7155 39.9748 35.6706C39.9436 35.5601 39.8949 35.4259 39.8346 35.2825C39.8168 35.2403 39.7989 35.1993 39.7813 35.1602C38.5103 34.2887 35.9788 33.0607 33.7095 32.5189C30.9875 31.8691 27.6413 31.4783 24 31.4783C20.3587 31.4783 17.0125 31.8691 14.2905 32.5189C12.0012 33.0654 9.44505 34.3104 8.18538 35.1832C8.17384 35.2075 8.16216 35.233 8.15052 35.2592C8.09919 35.3751 8.05721 35.4886 8.02977 35.589C8.00356 35.6848 8.00039 35.7333 8.00004 35.7388C8.00004 35.739 8 35.7393 8.00004 35.7388C8.00004 35.7641 8.0104 36.0767 8.68485 36.6314C9.34546 37.1746 10.4222 37.7531 11.9291 38.2772C14.9242 39.319 19.1919 40 24 40C28.8081 40 33.0758 39.319 36.0709 38.2772C37.5778 37.7531 38.6545 37.1746 39.3151 36.6314C39.9006 36.1499 39.9857 35.8511 39.998 35.764ZM4.95178 32.7688L21.4543 6.30267C22.6288 4.4191 25.3712 4.41909 26.5457 6.30267L43.0534 32.777C43.0709 32.8052 43.0878 32.8338 43.104 32.8629L41.3563 33.8352C43.104 32.8629 43.1038 32.8626 43.104 32.8629L43.1051 32.865L43.1065 32.8675L43.1101 32.8739L43.1199 32.8918C43.1276 32.906 43.1377 32.9246 43.1497 32.9473C43.1738 32.9925 43.2062 33.0545 43.244 33.1299C43.319 33.2792 43.4196 33.489 43.5217 33.7317C43.6901 34.1321 44 34.9311 44 35.7391C44 37.4427 43.003 38.7775 41.8558 39.7209C40.6947 40.6757 39.1354 41.4464 37.385 42.0552C33.8654 43.2794 29.133 44 24 44C18.867 44 14.1346 43.2794 10.615 42.0552C8.86463 41.4464 7.30529 40.6757 6.14419 39.7209C4.99695 38.7775 3.99999 37.4427 3.99999 35.7391C3.99999 34.8725 4.29264 34.0922 4.49321 33.6393C4.60375 33.3898 4.71348 33.1804 4.79687 33.0311C4.83898 32.9556 4.87547 32.8935 4.9035 32.8471C4.91754 32.8238 4.92954 32.8043 4.93916 32.7889L4.94662 32.777L4.95178 32.7688ZM35.9868 29.004L24 9.77997L12.0131 29.004C12.4661 28.8609 12.9179 28.7342 13.3617 28.6282C16.4281 27.8961 20.0901 27.4783 24 27.4783C27.9099 27.4783 31.5719 27.8961 34.6383 28.6282C35.082 28.7342 35.5339 28.8609 35.9868 29.004Z"
+                                fill="currentColor"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-[#1b150d] text-lg font-display font-bold leading-tight tracking-[-0.015em]">Safari
+                        Itinerary
+                    </h2>
+                </div>
+                <!-- Hamburger for mobile/tablet -->
+                <button id="menuBtn" class="flex md:hidden p-2" aria-label="Open Menu">
+                    <svg class="w-7 h-7 text-[#1b150d]" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+                <!-- Desktop Nav -->
+                <nav id="desktopNav" class="hidden md:flex flex-1 justify-end gap-4 mt-0">
+                    <div class="flex items-center gap-4 lg:gap-9 text-[#1b150d] text-sm font-medium">
+                        <a href="#Summary" class="hover:text-[#bfa14a]">Itinerary</a>
+                        <a href="#Highlights" class="hover:text-[#bfa14a]">Highlights</a>
+                        <a href="#DayDetails" class="hover:text-[#bfa14a]">Daily Details</a>
+                        <a href="#Pricing" class="hover:text-[#bfa14a]">Price Breakdown</a>
+                        <a href="#Terms" class="hover:text-[#bfa14a]">Terms</a>
+                        <a href="#Contact" class="hover:text-[#bfa14a]">Contact Us</a>
+                    </div>
+                </nav>
+                <!-- Mobile/Tablet Nav -->
+                <nav id="mobileNav"
+                    class="md:hidden absolute top-full left-0 w-full bg-white border-b border-[#f3ede7] shadow-lg z-30 hidden">
+                    <div class="flex flex-col items-center gap-2 py-4 text-[#1b150d] text-base font-medium">
+                        <a href="#Summary" class="hover:text-[#bfa14a]">Itinerary</a>
+                        <a href="#Highlights" class="hover:text-[#bfa14a]">Highlights</a>
+                        <a href="#DayDetails" class="hover:text-[#bfa14a]">Daily Details</a>
+                        <a href="#Pricing" class="hover:text-[#bfa14a]">Price Breakdown</a>
+                        <a href="#Terms" class="hover:text-[#bfa14a]">Terms</a>
+                        <a href="#Contact" class="hover:text-[#bfa14a]">Contact Us</a>
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Hero -->
+        <div class="@container">
+            <div class="@[280px]:px-4 @[280px]:py-3 px-2 py-2 max-w-3xl mx-auto">
+                <div class="overflow-hidden rounded-xl min-h-[218px]">
+                    <div class="w-full h-full bg-cover bg-center flex flex-col justify-end bg-[#fbfaf9] min-h-[218px] transition-transform duration-300 hover:scale-105"
+                        style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 25%), url("https://static.vecteezy.com/system/resources/previews/046/479/814/non_2x/a-vast-savannah-in-africa-with-acacia-twigs-free-photo.jpg");'>
+                        <div class="flex p-4 sm:p-6 md:px-8">
+                            <p class="text-white tracking-light text-[28px] font-display font-bold leading-tight">Embark
+                                on Your
+                                Safari
+                                Adventure</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <main class="flex-1 w-full max-w-3xl mx-auto px-3 md:px-8 py-6 pt-0">
+            <!-- Summary -->
+            <section id="Summary">
+                <h2 class="text-[#181311] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pt-6 pb-3">Your
+                    Itinerary</h2>
+                <ol class="relative border-l-4 border-[#bfa14a]/40 ml-8 mb-6">
+                    <li class="mb-8 ml-6">
+                        <span
+                            class="absolute -left-6 flex items-center justify-center w-8 h-8 bg-[#bfa14a] text-white rounded-full font-bold shadow-md">1</span>
+                        <div class="pl-2">
+                            <p class="text-[#181311] font-semibold">Arrival in Nairobi</p>
+                            <p class="text-[#886f63] text-sm">Welcome to Kenya! Settle in and relax.</p>
+                        </div>
+                    </li>
+                    <li class="mb-8 ml-6">
+                        <span
+                            class="absolute -left-6 flex items-center justify-center w-8 h-8 bg-[#bfa14a] text-white rounded-full font-bold shadow-md">2</span>
+                        <div class="pl-2">
+                            <p class="text-[#181311] font-semibold">Maasai Mara Exploration</p>
+                            <p class="text-[#886f63] text-sm">Scenic flight and first game drive adventure.</p>
+                        </div>
+                    </li>
+                    <li class="mb-8 ml-6">
+                        <span
+                            class="absolute -left-6 flex items-center justify-center w-8 h-8 bg-[#bfa14a] text-white rounded-full font-bold shadow-md">3</span>
+                        <div class="pl-2">
+                            <p class="text-[#181311] font-semibold">Game Drive &amp; Culture</p>
+                            <p class="text-[#886f63] text-sm">Wildlife encounters and Maasai village visit.</p>
+                        </div>
+                    </li>
+                    <li class="ml-6">
+                        <span
+                            class="absolute -left-6 flex items-center justify-center w-8 h-8 bg-[#bfa14a] text-white rounded-full font-bold shadow-md">4</span>
+                        <div class="pl-2">
+                            <p class="text-[#181311] font-semibold">Departure</p>
+                            <p class="text-[#886f63] text-sm">Breakfast and transfer to Nairobi for your flight home.
+                            </p>
+                        </div>
+                    </li>
+                </ol>
+            </section>
+            <!-- Highlights -->
+            <h2 id="Highlights"
+                class="text-[#181311] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">
+                Highlights
+            </h2>
+            <div
+                class="grid grid-cols-1 [@media(min-width:500px)]:grid-cols-2 [@media(min-width:768px)]:grid-cols-4 gap-6 px-4 pb-6">
+                <!-- Highlight Card Example -->
+                <div
+                    class="flex flex-col gap-3 pb-3 bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-200">
+                    <div class="overflow-hidden rounded-xl">
+                        <div class="w-full bg-center bg-no-repeat aspect-square bg-cover transition-transform duration-300 hover:scale-105"
+                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDbYQaI20tP3CY7xeOxwYOik3XeeDPs0KkMvitXwGQGgT9ZrydtzIf-et_nyxwrZ6Ewy427tg0Anq_iodaraX2z9hl5STa4CdWImdE7Nj544yUQEiDAA4iuJvC7Ab6-_mSA28m1dzCLIpAoH0FHXKxZ0_7tEcIWQhqHN84l1gw0-hkbB8T5WTWXs61A36l1CIOeOzuczrao7zG7SvA7ZvGWYRHsvoPN9_iHvZUbIS5Xbijfu4tsvSl2-juXCP7y4z_4WwCtpXxgWEs");'>
+                        </div>
+                    </div>
+                    <div class="px-4 pt-2 pb-3">
+                        <p class="text-[#181311] text-base font-semibold leading-tight">Maasai Mara National Reserve</p>
+                        <p class="text-[#886f63] text-sm font-normal leading-normal">Explore the vast plains</p>
+                    </div>
+                </div>
+                <!-- Repeat for each highlight, just change the image and text -->
+                <div
+                    class="flex flex-col gap-3 pb-3 bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-200">
+                    <div class="overflow-hidden rounded-xl">
+                        <div class="w-full bg-center bg-no-repeat aspect-square bg-cover transition-transform duration-300 hover:scale-105"
+                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC0iyGYUPJYvL201UpcLMyJ51kng_EDsE8_Xu-T3wwmKznIFlsNF0ylLY3LcxNK6Pq36KiSNC-HLBBxkQvpmT38fWd_OAbbPX3igQt-k65IZ3e7-SDrvjEYFajyttuf6sAIHsHDm9WGkTCW8iNmsL3duKSd_LwX-JXzRIo4UhIa9GQWjN17ym-7PHD7kE6WKmSQMVvTGQMdBHV6ywVwDENNgcwrfQKEgyHR7Typ1vk8l9S0SYpvEApgioHd1_y2NCEf2Z59QdVJKfs");'>
+                        </div>
+                    </div>
+                    <div class="px-4 pt-2 pb-3">
+                        <p class="text-[#181311] text-base font-semibold leading-tight">Luxury Safari Lodge</p>
+                        <p class="text-[#886f63] text-sm font-normal leading-normal">Stay in comfort</p>
+                    </div>
+                </div>
+                <div
+                    class="flex flex-col gap-3 pb-3 bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-200">
+                    <div class="overflow-hidden rounded-xl">
+                        <div class="w-full bg-center bg-no-repeat aspect-square bg-cover transition-transform duration-300 hover:scale-105"
+                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAtkuYNHM8miGASINFY_DexISyMOrrAkBbFR6LuCuK5pG2PxHtE3bi7yo39eGuxFhZ-8LCFtGQDKps8jFnpGSzbkF3Qg7lk05ckdt07ItP-MmruNnpmCfwPaQyUQ85oJZ6tjvZPtR-sgPvqgxD20hKt_O64kyHuk-CC1igkM18paMU54JLCLkhSvkekG9l-Dt8CfmV5DPv7HmxLJmuysspOji2tmBy4r9m2JwO120FZIOssOzc16OUmXH8QPXPTZQf6NZDrmhxkM4c");'>
+                        </div>
+                    </div>
+                    <div class="px-4 pt-2 pb-3">
+                        <p class="text-[#181311] text-base font-semibold leading-tight">Game Drives</p>
+                        <p class="text-[#886f63] text-sm font-normal leading-normal">Witness wildlife up close</p>
+                    </div>
+                </div>
+                <div
+                    class="flex flex-col gap-3 pb-3 bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-200">
+                    <div class="overflow-hidden rounded-xl">
+                        <div class="w-full bg-center bg-no-repeat aspect-square bg-cover transition-transform duration-300 hover:scale-105"
+                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCTBvAeNdA8D5ZTSEWzXG2vXqtkbvrq44YiGlN18a6ll--rpbP1UHbp37Z9ssvV0RlqlMJoszR_bDLuzFeuVrdrljmD4U8noprKEHTkOKqrnWuQnu0Oy9gBBkzh3E1UAkCByJq0m1aQKT0S4xw-gMFZ0PFgIeOq4lsE4ZzMgX5xxddbmoLmfVF1o_9x07V7FFXjfNc2_eG78JACdrTKL5Yq6a6FoHY-RcSUsh6S6Dc4VayA1wEOsxteAI2XynAAtLSQYi9eSqhmH-w");'>
+                        </div>
+                    </div>
+                    <div class="px-4 pt-2 pb-3">
+                        <p class="text-[#181311] text-base font-semibold leading-tight">Cultural Visit</p>
+                        <p class="text-[#886f63] text-sm font-normal leading-normal">Learn local traditions</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Daily Details -->
+            <h2 id="DayDetails"
+                class="text-[#181311] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">
+                Daily Details
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 px-4 pb-6">
+                <!-- Day Card Example -->
+                <div
+                    class="flex flex-col md:flex-row bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-200 overflow-hidden">
+                    <div class="md:w-1/2 w-full overflow-hidden">
+                        <div class="h-40 md:h-full bg-center bg-no-repeat bg-cover transition-transform duration-300 hover:scale-105"
+                            style='background-image: url("https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80");'>
+                        </div>
+                    </div>
+                    <div class="flex flex-col justify-center p-5 md:w-1/2 w-full">
+                        <p class="text-[#886f63] text-sm font-medium mb-1">Day 1</p>
+                        <h3 class="text-[#181311] text-lg font-bold leading-tight mb-2">Arrival in Nairobi</h3>
+                        <p class="text-[#886f63] text-base font-normal leading-normal">Settle into your hotel after
+                            arriving at Jomo Kenyatta International Airport.</p>
+                    </div>
+                </div>
+                <div
+                    class="flex flex-col md:flex-row bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-200 overflow-hidden">
+                    <div class="md:w-1/2 w-full overflow-hidden">
+                        <div class="h-40 md:h-full bg-center bg-no-repeat bg-cover transition-transform duration-300 hover:scale-105"
+                            style='background-image: url("https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80");'>
+                        </div>
+                    </div>
+                    <div class="flex flex-col justify-center p-5 md:w-1/2 w-full">
+                        <p class="text-[#886f63] text-sm font-medium mb-1">Day 2</p>
+                        <h3 class="text-[#181311] text-lg font-bold leading-tight mb-2">Maasai Mara Exploration</h3>
+                        <p class="text-[#886f63] text-base font-normal leading-normal">Fly to Maasai Mara, check into
+                            your lodge, and enjoy an afternoon game drive.</p>
+                    </div>
+                </div>
+                <div
+                    class="flex flex-col md:flex-row bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-200 overflow-hidden">
+                    <div class="md:w-1/2 w-full overflow-hidden">
+                        <div class="h-40 md:h-full bg-center bg-no-repeat bg-cover transition-transform duration-300 hover:scale-105"
+                            style='background-image: url("https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=600&q=80");'>
+                        </div>
+                    </div>
+                    <div class="flex flex-col justify-center p-5 md:w-1/2 w-full">
+                        <p class="text-[#886f63] text-sm font-medium mb-1">Day 3</p>
+                        <h3 class="text-[#181311] text-lg font-bold leading-tight mb-2">Game Drive and Cultural Visit
+                        </h3>
+                        <p class="text-[#886f63] text-base font-normal leading-normal">Experience an early morning game
+                            drive and optionally visit a local Maasai village.</p>
+                    </div>
+                </div>
+                <div
+                    class="flex flex-col md:flex-row bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-200 overflow-hidden">
+                    <div class="md:w-1/2 w-full overflow-hidden">
+                        <div class="h-40 md:h-full bg-center bg-no-repeat bg-cover transition-transform duration-300 hover:scale-105"
+                            style='background-image: url("https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80");'>
+                        </div>
+                    </div>
+                    <div class="flex flex-col justify-center p-5 md:w-1/2 w-full">
+                        <p class="text-[#886f63] text-sm font-medium mb-1">Day 4</p>
+                        <h3 class="text-[#181311] text-lg font-bold leading-tight mb-2">Departure from Nairobi</h3>
+                        <p class="text-[#886f63] text-base font-normal leading-normal">Enjoy a final breakfast before
+                            flying back to Nairobi for your departure.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Price Breakdown -->
+            <h2 id="Pricing"
+                class="text-[#181311] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">
+                Price Breakdown
+            </h2>
+            <div class="p-4">
+                <div class="flex justify-between gap-x-6 py-2">
+                    <p class="text-[#886f63] text-sm font-normal leading-normal">Safari Package</p>
+                    <p class="text-[#181311] text-sm font-normal leading-normal text-right">$3,500</p>
+                </div>
+                <div class="flex justify-between gap-x-6 py-2">
+                    <p class="text-[#886f63] text-sm font-normal leading-normal">Park Fees</p>
+                    <p class="text-[#181311] text-sm font-normal leading-normal text-right">$200</p>
+                </div>
+                <div class="flex justify-between gap-x-6 py-2">
+                    <p class="text-[#886f63] text-sm font-normal leading-normal">Airport Transfers</p>
+                    <p class="text-[#181311] text-sm font-normal leading-normal text-right">$100</p>
+                </div>
+                <div class="flex justify-between gap-x-6 py-2">
+                    <p class="text-[#886f63] text-sm font-normal leading-normal">Travel Insurance</p>
+                    <p class="text-[#181311] text-sm font-normal leading-normal text-right">$75</p>
+                </div>
+                <div class="flex justify-between gap-x-6 py-2 border-t border-[#e2dbd5] mt-2 pt-3">
+                    <p class="text-[#bfa14a] text-base font-bold leading-normal uppercase">Total</p>
+                    <p class="text-[#bfa14a] text-base font-bold leading-normal text-right">$3,875</p>
+                </div>
+            </div>
+
+            <!-- Terms -->
+            <section id="Terms" class="max-w-3xl mx-auto">
+                <h3 class="text-[#1b150d] text-lg font-bold leading-tight tracking-[-0.015em] pb-2 pt-4">Terms &amp;
+                    Conditions</h3>
+                <div class="space-y-2">
+                    <div class="border rounded-lg overflow-hidden">
+                        <button type="button"
+                            class="w-full flex justify-between items-center px-4 py-3 text-left text-[#1b150d] font-medium focus:outline-none focus:bg-[#f3ede7] bg-[#faf7f2]"
+                            onclick="toggleFaq(this)">
+                            What is the payment and cancellation policy?
+                            <svg class="w-5 h-5 transition-transform duration-200" fill="none" stroke="currentColor"
+                                stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div class="px-4 pb-3 hidden text-[#1b150d] bg-white">
+                            <p>
+                                Please review our payment and cancellation policy carefully before confirming your
+                                safari booking. Details regarding deposits, balance payments, and cancellation fees
+                                are
+                                provided upon request.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="border rounded-lg overflow-hidden">
+                        <button type="button"
+                            class="w-full flex justify-between items-center px-4 py-3 text-left text-[#1b150d] font-medium focus:outline-none focus:bg-[#f3ede7] bg-[#faf7f2]"
+                            onclick="toggleFaq(this)">
+                            Is travel insurance required?
+                            <svg class="w-5 h-5 transition-transform duration-200" fill="none" stroke="currentColor"
+                                stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div class="px-4 pb-3 hidden text-[#1b150d] bg-white">
+                            <p>
+                                Yes, comprehensive travel insurance is highly recommended for all travelers. It
+                                should
+                                cover medical emergencies, trip cancellations, and personal belongings.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="border rounded-lg overflow-hidden">
+                        <button type="button"
+                            class="w-full flex justify-between items-center px-4 py-3 text-left text-[#1b150d] font-medium focus:outline-none focus:bg-[#f3ede7] bg-[#faf7f2]"
+                            onclick="toggleFaq(this)">
+                            Who can I contact for more information?
+                            <svg class="w-5 h-5 transition-transform duration-200" fill="none" stroke="currentColor"
+                                stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div class="px-4 pb-3 hidden text-[#1b150d] bg-white">
+                            <p>
+                                For any inquiries, please contact our dedicated customer service team at <a
+                                    href="mailto:info@safariitinari.com"
+                                    class="text-[#bfa14a] underline">info@safariitinari.com</a>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Contact -->
+            <section id="Contact">
+                <div class="p-4 pb-0 @container">
+                    <div
+                        class="flex flex-1 flex-col items-start justify-between gap-4 rounded-xl border border-[#e2dbd5] bg-[#fbfaf9] p-5">
+                        <div class="flex flex-col gap-1">
+                            <p class="text-[#181411] text-base font-bold leading-tight">Contact Us</p>
+                            <p class="text-[#89725d] text-base font-normal leading-normal">For any inquiries or
+                                assistance, please reach out to us.</p>
+                        </div>
+                        <p class="text-[#1b150d] text-base font-normal pb-3">
+                            Email: <a href="mailto:info@safariitinari.com"
+                                class="text-[#bfa14a] underline">info@safariitinari.com</a><br>
+                            Phone: <a href="tel:+1234567890" class="text-[#bfa14a] underline">+1 234 567 890</a>
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="text-center pb-4 text-sm font-sans">
+            &copy; 2025 Safari Itinari. All rights reserved.
+        </footer>
+    </div>
+    <script>
+        // Mobile nav toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileNav = document.getElementById('mobileNav');
+        const desktopNav = document.getElementById('desktopNav');
+        menuBtn.addEventListener('click', () => {
+            mobileNav.classList.toggle('hidden');
+        });
+        // Hide mobile nav on link click
+        mobileNav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileNav.classList.add('hidden');
+            });
+        });
+
+        // FAQ dropdown logic
+        function toggleFaq(btn) {
+            const content = btn.nextElementSibling;
+            const icon = btn.querySelector('svg');
+            if (content.classList.contains('hidden')) {
+                // Close all other open FAQs
+                document.querySelectorAll('#Terms .space-y-2 > div > div:not(.hidden)').forEach(el => el.classList.add('hidden'));
+                document.querySelectorAll('#Terms .space-y-2 > div button svg').forEach(svg => svg.classList.remove('rotate-180'));
+                // Open this one
+                content.classList.remove('hidden');
+                icon.classList.add('rotate-180');
+            } else {
+                content.classList.add('hidden');
+                icon.classList.remove('rotate-180');
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,590 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <!-- Modern, attractive Google Fonts -->
+    <link rel="stylesheet" as="style" onload="this.rel='stylesheet'"
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@500;700&family=Inter:wght@400;600&display=swap" />
+    <title>Safari Itinerary</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Font utility classes */
+        .font-display {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .font-sans {
+            font-family: 'Montserrat', 'Inter', Arial, sans-serif;
+        }
+
+        .font-body {
+            font-family: 'Inter', 'Montserrat', Arial, sans-serif;
+        }
+
+        .card-hover {
+            transition: transform 0.25s cubic-bezier(.4, 0, .2, 1), box-shadow 0.25s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        .card-hover:hover {
+            transform: scale(1.035);
+            box-shadow: 0 8px 32px 0 rgba(191, 161, 74, 0.18), 0 1.5px 8px 0 rgba(34, 34, 34, 0.07);
+            z-index: 2;
+        }
+
+        .img-hover {
+            transition: transform 0.3s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        .card-hover:hover .img-hover {
+            transform: scale(1.08);
+        }
+
+        /* Places section: hover zoom for image card */
+        .place-card-hover {
+            transition: transform 0.25s cubic-bezier(.4, 0, .2, 1), box-shadow 0.25s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        .place-card-hover:hover {
+            transform: scale(1.035);
+            box-shadow: 0 8px 32px 0 rgba(191, 161, 74, 0.18), 0 1.5px 8px 0 rgba(34, 34, 34, 0.07);
+            z-index: 2;
+        }
+
+        .place-img-hover {
+            transition: transform 0.3s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        .place-card-hover:hover .place-img-hover {
+            transform: scale(1.08);
+        }
+
+        /* Day Details: hover shadow effect */
+        .day-details-hover {
+            transition: box-shadow 0.25s cubic-bezier(.4, 0, .2, 1), transform 0.25s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        .day-details-hover:hover {
+            box-shadow: 0 8px 32px 0 rgba(191, 161, 74, 0.18), 0 1.5px 8px 0 rgba(34, 34, 34, 0.07);
+            transform: scale(1.025);
+            z-index: 2;
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-to-br from-[#f7e9d7] via-[#eafbe7] to-[#e2eafc] font-body">
+    <div class="min-h-screen flex flex-col">
+        <!-- Header -->
+        <header
+            class="flex items-center justify-between border-b border-[#e0c3a3] px-4 md:px-10 py-3 bg-gradient-to-r from-[#fffbe9] via-[#f7e9d7] to-[#e2eafc] shadow-md sticky top-0 z-20">
+            <div class="flex items-center justify-between w-full max-w-3xl mx-auto">
+                <!-- Logo and Title -->
+                <div class="flex items-center gap-4 text-[#1b150d]">
+                    <div
+                        class="size-4 bg-gradient-to-br from-[#bfa14a] to-[#eafbe7] rounded-full flex items-center justify-center shadow">
+                        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M13.8261 30.5736C16.7203 29.8826 20.2244 29.4783 24 29.4783C27.7756 29.4783 31.2797 29.8826 34.1739 30.5736C36.9144 31.2278 39.9967 32.7669 41.3563 33.8352L24.8486 7.36089C24.4571 6.73303 23.5429 6.73303 23.1514 7.36089L6.64374 33.8352C8.00331 32.7669 11.0856 31.2278 13.8261 30.5736Z"
+                                fill="currentColor"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M39.998 35.764C39.9944 35.7463 39.9875 35.7155 39.9748 35.6706C39.9436 35.5601 39.8949 35.4259 39.8346 35.2825C39.8168 35.2403 39.7989 35.1993 39.7813 35.1602C38.5103 34.2887 35.9788 33.0607 33.7095 32.5189C30.9875 31.8691 27.6413 31.4783 24 31.4783C20.3587 31.4783 17.0125 31.8691 14.2905 32.5189C12.0012 33.0654 9.44505 34.3104 8.18538 35.1832C8.17384 35.2075 8.16216 35.233 8.15052 35.2592C8.09919 35.3751 8.05721 35.4886 8.02977 35.589C8.00356 35.6848 8.00039 35.7333 8.00004 35.7388C8.00004 35.739 8 35.7393 8.00004 35.7388C8.00004 35.7641 8.0104 36.0767 8.68485 36.6314C9.34546 37.1746 10.4222 37.7531 11.9291 38.2772C14.9242 39.319 19.1919 40 24 40C28.8081 40 33.0758 39.319 36.0709 38.2772C37.5778 37.7531 38.6545 37.1746 39.3151 36.6314C39.9006 36.1499 39.9857 35.8511 39.998 35.764ZM4.95178 32.7688L21.4543 6.30267C22.6288 4.4191 25.3712 4.41909 26.5457 6.30267L43.0534 32.777C43.0709 32.8052 43.0878 32.8338 43.104 32.8629L41.3563 33.8352C43.104 32.8629 43.1038 32.8626 43.104 32.8629L43.1051 32.865L43.1065 32.8675L43.1101 32.8739L43.1199 32.8918C43.1276 32.906 43.1377 32.9246 43.1497 32.9473C43.1738 32.9925 43.2062 33.0545 43.244 33.1299C43.319 33.2792 43.4196 33.489 43.5217 33.7317C43.6901 34.1321 44 34.9311 44 35.7391C44 37.4427 43.003 38.7775 41.8558 39.7209C40.6947 40.6757 39.1354 41.4464 37.385 42.0552C33.8654 43.2794 29.133 44 24 44C18.867 44 14.1346 43.2794 10.615 42.0552C8.86463 41.4464 7.30529 40.6757 6.14419 39.7209C4.99695 38.7775 3.99999 37.4427 3.99999 35.7391C3.99999 34.8725 4.29264 34.0922 4.49321 33.6393C4.60375 33.3898 4.71348 33.1804 4.79687 33.0311C4.83898 32.9556 4.87547 32.8935 4.9035 32.8471C4.91754 32.8238 4.92954 32.8043 4.93916 32.7889L4.94662 32.777L4.95178 32.7688ZM35.9868 29.004L24 9.77997L12.0131 29.004C12.4661 28.8609 12.9179 28.7342 13.3617 28.6282C16.4281 27.8961 20.0901 27.4783 24 27.4783C27.9099 27.4783 31.5719 27.8961 34.6383 28.6282C35.082 28.7342 35.5339 28.8609 35.9868 29.004Z"
+                                fill="currentColor"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-[#1b150d] text-lg font-display font-bold leading-tight tracking-[-0.015em]">Safari
+                        Itinerary
+                    </h2>
+                </div>
+                <!-- Hamburger for mobile/tablet -->
+                <button id="menuBtn" class="flex md:hidden p-2" aria-label="Open Menu">
+                    <svg class="w-7 h-7 text-[#1b150d]" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+                <!-- Desktop Nav -->
+                <nav id="desktopNav" class="hidden md:flex flex-1 justify-end gap-4 mt-0">
+                    <div class="flex items-center gap-4 lg:gap-9 text-[#1b150d] text-sm font-medium">
+                        <a href="#Places" class="hover:text-[#bfa14a]">Places</a>
+                        <a href="#Accommodations" class="hover:text-[#bfa14a]">Accommodations</a>
+                        <a href="#Activities" class="hover:text-[#bfa14a]">Activities</a>
+                        <a href="#DayDetails" class="hover:text-[#bfa14a]">Day Details</a>
+                        <a href="#Pricing" class="hover:text-[#bfa14a]">Pricing</a>
+                        <a href="#Contact" class="hover:text-[#bfa14a]">Contact Us</a>
+                    </div>
+                </nav>
+                <!-- Mobile/Tablet Nav -->
+                <nav id="mobileNav"
+                    class="md:hidden absolute top-full left-0 w-full bg-white border-b border-[#f3ede7] shadow-lg z-30 hidden">
+                    <div class="flex flex-col items-center gap-2 py-4 text-[#1b150d] text-base font-medium">
+                        <a href="#Places" class="hover:text-[#bfa14a]">Places</a>
+                        <a href="#Accommodations" class="hover:text-[#bfa14a]">Accommodations</a>
+                        <a href="#Activities" class="hover:text-[#bfa14a]">Activities</a>
+                        <a href="#DayDetails" class="hover:text-[#bfa14a]">Day Details</a>
+                        <a href="#Pricing" class="hover:text-[#bfa14a]">Pricing</a>
+                        <a href="#Contact" class="hover:text-[#bfa14a]">Contact Us</a>
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Hero -->
+        <div class="@container">
+            <div class="@[280px]:px-4 @[280px]:py-3 px-2 py-2 max-w-3xl mx-auto">
+                <div
+                    class="overflow-hidden rounded-xl min-h-[218px] border-4 border-[#bfa14a]/40 bg-gradient-to-br from-[#eafbe7] via-[#d0f5c9] to-[#e2eafc] shadow-lg">
+                    <div class="w-full h-full bg-cover bg-center flex flex-col justify-end min-h-[218px] transition-transform duration-300 hover:scale-105"
+                        style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 25%), url("https://cdn.pixabay.com/photo/2020/06/21/09/48/hill-5324149_1280.jpg");'>
+                        <div class="flex p-4 sm:p-6 md:px-8">
+                            <p class="text-white tracking-light text-[28px] font-display font-bold leading-tight">Embark
+                                on Your Safari Adventure</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <main class="flex-1 w-full max-w-3xl mx-auto px-3 md:px-8 py-6 pt-0">
+            <!-- Summary -->
+            <section id="Summary">
+                <h3 class="text-[#1b150d] text-lg font-display font-bold leading-tight tracking-[-0.015em] pb-2 pt-4">
+                    Summary
+                </h3>
+                <p class="text-[#1b150d] text-base font-body font-normal leading-normal pb-3 px-2">
+                    Experience the thrill of a lifetime as you journey through the heart of Africa, where the wild roams
+                    free and adventure awaits at every turn. This meticulously
+                    crafted itinerary promises an immersive experience in the breathtaking landscapes and rich wildlife
+                    of the continent, ensuring a safari that will leave you with
+                    unforgettable memories.
+                </p>
+                <div
+                    class="grid grid-cols-[40px_1fr] gap-x-0 px-4 bg-gradient-to-r from-[#eafbe7] via-[#f3f7f0] to-[#e2eafc] rounded-3xl shadow-inner border-l-4 border-[#bfa14a]/40">
+                    <!-- Day 1 -->
+                    <div class="flex flex-col items-center gap-1 pt-3">
+                        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-6"
+                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDKOC2Wxp_PGsAMOnptGC8Sqhfncwh6J6mDiUgH_C467Cl1v-P0t1CJotwu7mjpY1P3r9Nu9sawwJpnSbj4JWSZ5vH71LU4ulwv5KyDBieCIQZLes3FAxVumawSKeKsHjCPLKj5NBynv1AZiKW6pKLCmIV0YZhwBUZgZ2ByZ22_slK65a1ejS2C0MjxwP8IewbWRYWhajcUqy37c7oGv8eElcnXUbiHB57IDEf_rOSWQToTIlison8w5zrOUKnWDOauXAtzbBTZik1v");'>
+                        </div>
+                        <div class="w-[1.5px] bg-[#e2dbd5] h-2 grow"></div>
+                    </div>
+                    <div
+                        class="flex flex-1 flex-col py-3 px-3 transition-transform duration-200 hover:scale-[1.025] hover:shadow-lg rounded-lg">
+                        <p class="text-[#181411] text-base font-medium leading-normal">Day 1: Arrival in Arusha</p>
+                        <p class="text-[#89725d] text-base font-normal leading-normal">Arrive at Kilimanjaro
+                            International Airport, transfer to hotel in Arusha. Accommodation: Mount Meru Hotel.</p>
+                    </div>
+                    <!-- Day 2 -->
+                    <div class="flex flex-col items-center gap-1">
+                        <div class="w-[1.5px] bg-[#e2dbd5] h-2"></div>
+                        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-6"
+                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA12vMC_YGcAeFrHDEgcP9cED22uX5NZypmoPo0y62FY2EJtS3HuBvrm9JORwSzM06F_j6xdQxayNed6nVjawJwxgmWOHzhq3tHPvrvOTY-TrcL0uQ5MwiecAnu8na9O18XjX1Vbo7fxtIM5O5ubqW9Jwv2WQ3o9sH6EYSSSlRrEOD6V8yZ67KhItRse65XnjXF6CzaYVn4Euw8VQioYPVBrnMLaBLvAc2JPuVecXv0UCFCFyaG7SSvqMvtcBrojfoKex8Cx1bsny9i");'>
+                        </div>
+                        <div class="w-[1.5px] bg-[#e2dbd5] h-2 grow"></div>
+                    </div>
+                    <div
+                        class="flex flex-1 flex-col py-3 px-3 transition-transform duration-200 hover:scale-[1.025] hover:shadow-lg rounded-lg">
+                        <p class="text-[#181411] text-base font-medium leading-normal">Day 2: Tarangire National Park
+                        </p>
+                        <p class="text-[#89725d] text-base font-normal leading-normal">Safari in Tarangire National
+                            Park. Accommodation: Tarangire Safari Lodge.</p>
+                    </div>
+                    <!-- Day 3 -->
+                    <div class="flex flex-col items-center gap-1">
+                        <div class="w-[1.5px] bg-[#e2dbd5] h-2"></div>
+                        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-6"
+                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBgYnhqZfcNjjZEvWR__P7EidMoaNQ4lr2ol98V-QEH8hhspbaT-Ltu2iRXCAddKxdIBKLuShJOqCkgauE7rvl9p7fM6xtfmmAO1G8nW9NtzFHh7slGfErYl7aqXErzYO8oxQlxV6i1tgaP0u4ifB1ScB3MMeXIzolaTUGkd7Wsj0pAAfY-uEGWBtM5EpBIxxezgFKxAPf5V9sstm8OrrNh9IvFvTSco1HqeGXRep-j-1wIYHDt-OCxgLOkDXEM9HTNoWFMiHWaaKtg");'>
+                        </div>
+                        <div class="w-[1.5px] bg-[#e2dbd5] h-2 grow"></div>
+                    </div>
+                    <div
+                        class="flex flex-1 flex-col py-3 px-3 transition-transform duration-200 hover:scale-[1.025] hover:shadow-lg rounded-lg">
+                        <p class="text-[#181411] text-base font-medium leading-normal">Day 3: Ngorongoro Crater</p>
+                        <p class="text-[#89725d] text-base font-normal leading-normal">Explore Ngorongoro Crater.
+                            Accommodation: Ngorongoro Serena Safari Lodge.</p>
+                    </div>
+                    <!-- Day 4 -->
+                    <div class="flex flex-col items-center gap-1">
+                        <div class="w-[1.5px] bg-[#e2dbd5] h-2"></div>
+                        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-6"
+                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAqJLPvKB1ZdQsc0-Na2pbKVKKSP73D_TrRiO9547n1d9dPjwWaVwSvpT9EiGknu0xZTaPu3sjXxDJUBwD6uEgwpbrcYIZIu-Oly2ztnKkz8xszlkGrsoS2-Zu2yw2om_jSoNA3z28kfli1eD3w8fCx43QCwwmT9rmrg-BJNcINgG5484EgVZ3Tk7rjU26U_SVwu3J__CYCYj3w1QX8_8QIn94lk8HypEajKFnl2H00YCXpA1Ag55DZemnFXtUOqIqKbJxM4X37PFWt");'>
+                        </div>
+                        <div class="w-[1.5px] bg-[#e2dbd5] h-2 grow"></div>
+                    </div>
+                    <div
+                        class="flex flex-1 flex-col py-3 px-3 transition-transform duration-200 hover:scale-[1.025] hover:shadow-lg rounded-lg">
+                        <p class="text-[#181411] text-base font-medium leading-normal">Day 4: Serengeti National Park
+                        </p>
+                        <p class="text-[#89725d] text-base font-normal leading-normal">Safari in Serengeti National
+                            Park. Accommodation: Serengeti Safari Lodge.</p>
+                    </div>
+                    <!-- Day 5 -->
+                    <div class="flex flex-col items-center gap-1 pb-3">
+                        <div class="w-[1.5px] bg-[#e2dbd5] h-2"></div>
+                        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-6"
+                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBa1zBv5_K83mbeWV3PnrkQXkooO8mwprcTxWIyYkQJz5nP8NJkH5Wx5Mn03W-NFCwktagyZ_wd4XiUwU-Nuj3BUoWlYsZ5ts3LL-cgva91Xzb5Vna8fcBfT9szJGolZHxtl4KEE1LmNm5cptO9sRieg6LPW8hkEEx6pLzDcE8SZtMpmyPCR593ttyEXEXjJ7Nlhy7Ow9zF_9YiDtG6rxdw5q17UcPJaHOg4acUfxkXXQsuBm5We_kPXTQYTGlRn5zL_BHe55RgzZ7i");'>
+                        </div>
+                    </div>
+                    <div
+                        class="flex flex-1 flex-col py-3 px-3 transition-transform duration-200 hover:scale-[1.025] hover:shadow-lg rounded-lg">
+                        <p class="text-[#181411] text-base font-medium leading-normal">Day 5: Departure</p>
+                        <p class="text-[#89725d] text-base font-normal leading-normal">Return to Arusha and depart from
+                            Kilimanjaro International Airport.</p>
+                    </div>
+                </div>
+
+            </section>
+
+            <h2 class="text-[#121517] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Places
+            </h2>
+            <div
+                class="grid grid-cols-1 [@media(min-width:400px)]:grid-cols-2 [@media(min-width:700px)]:grid-cols-4 gap-3 p-4 bg-gradient-to-br from-[#eafbe7] via-[#f3f7f0] to-[#e2eafc] rounded-3xl border-2 border-[#bfa14a]/30 shadow-inner">
+                <div class="flex flex-col gap-3 pb-3 place-card-hover rounded-xl">
+                    <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl place-img-hover"
+                        style='background-image: url("https://kim.tours/storage/tour_photos/X8OmuyOUlUeW1RKPNW2HzcgIYmd3b0UZsekK6Gcp.jpeg");'>
+                    </div>
+                    <div class="px-3">
+                        <p class="text-[#121517] text-base font-medium leading-normal">Arusha</p>
+                        <p class="text-[#677883] text-sm font-normal leading-normal">City</p>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-3 pb-3 place-card-hover rounded-xl">
+                    <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl place-img-hover"
+                        style='background-image: url("https://tse2.mm.bing.net/th/id/OIP.TRfSU7NoOhAee885lM9FYgHaE8?r=0&rs=1&pid=ImgDetMain&o=7&rm=3");'>
+                    </div>
+                    <div class="px-3">
+                        <p class="text-[#121517] text-base font-medium leading-normal">Tarangire National Park</p>
+                        <p class="text-[#677883] text-sm font-normal leading-normal">National Park</p>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-3 pb-3 place-card-hover rounded-xl">
+                    <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl place-img-hover"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBgYnhqZfcNjjZEvWR__P7EidMoaNQ4lr2ol98V-QEH8hhspbaT-Ltu2iRXCAddKxdIBKLuShJOqCkgauE7rvl9p7fM6xtfmmAO1G8nW9NtzFHh7slGfErYl7aqXErzYO8oxQlxV6i1tgaP0u4ifB1ScB3MMeXIzolaTUGkd7Wsj0pAAfY-uEGWBtM5EpBIxxezgFKxAPf5V9sstm8OrrNh9IvFvTSco1HqeGXRep-j-1wIYHDt-OCxgLOkDXEM9HTNoWFMiHWaaKtg");'>
+                    </div>
+                    <div class="px-3">
+                        <p class="text-[#121517] text-base font-medium leading-normal">Ngorongoro Crater</p>
+                        <p class="text-[#677883] text-sm font-normal leading-normal">Conservation Area</p>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-3 pb-3 place-card-hover rounded-xl">
+                    <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl place-img-hover"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAqJLPvKB1ZdQsc0-Na2pbKVKKSP73D_TrRiO9547n1d9dPjwWaVwSvpT9EiGknu0xZTaPu3sjXxDJUBwD6uEgwpbrcYIZIu-Oly2ztnKkz8xszlkGrsoS2-Zu2yw2om_jSoNA3z28kfli1eD3w8fCx43QCwwmT9rmrg-BJNcINgG5484EgVZ3Tk7rjU26U_SVwu3J__CYCYj3w1QX8_8QIn94lk8HypEajKFnl2H00YCXpA1Ag55DZemnFXtUOqIqKbJxM4X37PFWt");'>
+                    </div>
+                    <div class="px-3">
+                        <p class="text-[#121517] text-base font-medium leading-normal">Serengeti National Park</p>
+                        <p class="text-[#677883] text-sm font-normal leading-normal">National Park</p>
+                    </div>
+                </div>
+            </div>
+            <h2 class="text-[#121517] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">
+                Accommodations</h2>
+            <div
+                class="grid grid-cols-1 [@media(min-width:500px)]:grid-cols-3 gap-4 p-4 bg-gradient-to-br from-[#f7e9d7] via-[#eafbe7] to-[#e2eafc] rounded-3xl border-2 border-[#bfa14a]/30 shadow-inner">
+                <div class="flex flex-col gap-3 pb-3 bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+                    <img src="https://tse2.mm.bing.net/th/id/OIP.VqQGINmAjdtyRQsFqbQRcwHaEh?r=0&w=1270&h=776&rs=1&pid=ImgDetMain&o=7&rm=3"
+                        alt="Mount Meru Hotel" class="w-full h-36 object-cover img-hover">
+                    <div class="p-3">
+                        <p class="text-[#121517] text-base font-medium leading-normal">Mount Meru Hotel</p>
+                        <p class="text-[#677883] text-sm font-normal leading-normal">Arusha</p>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-3 pb-3 bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+                    <img src="https://image-tc.galaxy.tf/wijpeg-6ftxk1i8xvmc3zyjjelhc4kf0/serenaserengeti-70.jpg?width=1600&height=1066"
+                        alt="Tarangire Safari Lodge" class="w-full h-36 object-cover img-hover">
+                    <div class="p-3">
+                        <p class="text-[#121517] text-base font-medium leading-normal">Tarangire Safari Lodge</p>
+                        <p class="text-[#677883] text-sm font-normal leading-normal">Tarangire National Park</p>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-3 pb-3 bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+                    <img src="https://tse4.mm.bing.net/th/id/OIP.IRdN73QivtDLm4pTpTx14AHaD2?r=0&w=2048&h=1065&rs=1&pid=ImgDetMain&o=7&rm=3"
+                        alt="Ngorongoro Serena Safari Lodge" class="w-full h-36 object-cover img-hover">
+                    <div class="p-3">
+                        <p class="text-[#121517] text-base font-medium leading-normal">Ngorongoro Serena Safari Lodge
+                        </p>
+                        <p class="text-[#677883] text-sm font-normal leading-normal">Ngorongoro Crater</p>
+                    </div>
+                </div>
+            </div>
+            <h2 class="text-[#121517] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Activities
+            </h2>
+            <div
+                class="grid grid-cols-1 [@media(min-width:400px)]:grid-cols-2 [@media(min-width:1050px)]:grid-cols-4 gap-4 p-4 bg-gradient-to-br from-[#eafbe7] via-[#e2eafc] to-[#f7e9d7] rounded-3xl border-2 border-[#bfa14a]/30 shadow-inner">
+                <div class="flex flex-col gap-3 pb-3 bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+                    <img src="https://tse2.mm.bing.net/th/id/OIP.GCCb2YxNZwhvLyKEFuBZXgHaE7?r=0&w=2400&h=1596&rs=1&pid=ImgDetMain&o=7&rm=3"
+                        alt="Game Drive" class="w-full h-36 object-cover img-hover">
+                    <div class="p-3">
+                        <p class="text-[#121517] text-base font-medium leading-normal">Game Drive</p>
+                        <p class="text-[#677883] text-sm font-normal leading-normal">Tarangire National Park</p>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-3 pb-3 bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+                    <img src="https://tse2.mm.bing.net/th/id/OIP.q4CJvs2BsDuOvjcMER--2gHaFL?r=0&rs=1&pid=ImgDetMain&o=7&rm=3"
+                        alt="Bird Watching" class="w-full h-36 object-cover img-hover">
+                    <div class="p-3">
+                        <p class="text-[#121517] text-base font-medium leading-normal">Bird Watching</p>
+                        <p class="text-[#677883] text-sm font-normal leading-normal">Ngorongoro Crater</p>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-3 pb-3 bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+                    <img src="https://th.bing.com/th/id/OIP.kVjuTjwXOgp2qkFTjbQSugHaE7?r=0&o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3"
+                        alt="Cultural Visit" class="w-full h-36 object-cover img-hover">
+                    <div class="p-3">
+                        <p class="text-[#121517] text-base font-medium leading-normal">Cultural Visit</p>
+                        <p class="text-[#677883] text-sm font-normal leading-normal">Serengeti National Park</p>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-3 pb-3 bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+                    <img src="https://tanzania-specialist.com/wp-content/uploads/2023/07/shutterstock_89466565-1900x1000-1.jpg"
+                        alt="Guided Walk" class="w-full h-36 object-cover img-hover">
+                    <div class="p-3">
+                        <p class="text-[#121517] text-base font-medium leading-normal">Guided Walk</p>
+                        <p class="text-[#677883] text-sm font-normal leading-normal">Serengeti National Park</p>
+                    </div>
+                </div>
+            </div>
+            <h2 class="text-[#121517] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Day
+                Details</h2>
+            <div
+                class="flex flex-col p-4 gap-3 bg-gradient-to-br from-[#eafbe7] via-[#f3f7f0] to-[#e2eafc] rounded-3xl border-2 border-[#bfa14a]/30 shadow-inner">
+                <details class="flex flex-col rounded-xl bg-[#f1f3f4] px-4 py-2 group day-details-hover" open="">
+                    <summary class="flex cursor-pointer items-center justify-between gap-6 py-2">
+                        <p class="text-[#121517] text-sm font-medium leading-normal">Day 1: Arrival in Arusha</p>
+                        <div class="text-[#121517] group-open:rotate-180" data-icon="CaretDown" data-size="20px"
+                            data-weight="regular">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor"
+                                viewBox="0 0 256 256">
+                                <path
+                                    d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z">
+                                </path>
+                            </svg>
+                        </div>
+                    </summary>
+                    <p class="text-[#677883] text-sm font-normal leading-normal pb-2">
+                        Upon arrival at Kilimanjaro International Airport, you will be met by our representative and
+                        transferred to your hotel in Arusha. Check in and relax after your
+                        journey. Accommodation: Mount Meru Hotel
+                    </p>
+                </details>
+                <details class="flex flex-col rounded-xl bg-[#f1f3f4] px-4 py-2 group day-details-hover">
+                    <summary class="flex cursor-pointer items-center justify-between gap-6 py-2">
+                        <p class="text-[#121517] text-sm font-medium leading-normal">Day 2: Tarangire National Park</p>
+                        <div class="text-[#121517] group-open:rotate-180" data-icon="CaretDown" data-size="20px"
+                            data-weight="regular">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor"
+                                viewBox="0 0 256 256">
+                                <path
+                                    d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z">
+                                </path>
+                            </svg>
+                        </div>
+                    </summary>
+                    <p class="text-[#677883] text-sm font-normal leading-normal pb-2">
+                        Upon arrival at Kilimanjaro International Airport, you will be met by our representative and
+                        transferred to your hotel in Arusha. Check in and relax after your
+                        journey. Accommodation: Mount Meru Hotel
+                    </p>
+                </details>
+                <details class="flex flex-col rounded-xl bg-[#f1f3f4] px-4 py-2 group day-details-hover">
+                    <summary class="flex cursor-pointer items-center justify-between gap-6 py-2">
+                        <p class="text-[#121517] text-sm font-medium leading-normal">Day 3: Ngorongoro Crater</p>
+                        <div class="text-[#121517] group-open:rotate-180" data-icon="CaretDown" data-size="20px"
+                            data-weight="regular">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor"
+                                viewBox="0 0 256 256">
+                                <path
+                                    d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z">
+                                </path>
+                            </svg>
+                        </div>
+                    </summary>
+                    <p class="text-[#677883] text-sm font-normal leading-normal pb-2">
+                        Upon arrival at Kilimanjaro International Airport, you will be met by our representative and
+                        transferred to your hotel in Arusha. Check in and relax after your
+                        journey. Accommodation: Mount Meru Hotel
+                    </p>
+                </details>
+                <details class="flex flex-col rounded-xl bg-[#f1f3f4] px-4 py-2 group day-details-hover">
+                    <summary class="flex cursor-pointer items-center justify-between gap-6 py-2">
+                        <p class="text-[#121517] text-sm font-medium leading-normal">Day 4: Serengeti National Park</p>
+                        <div class="text-[#121517] group-open:rotate-180" data-icon="CaretDown" data-size="20px"
+                            data-weight="regular">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor"
+                                viewBox="0 0 256 256">
+                                <path
+                                    d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z">
+                                </path>
+                            </svg>
+                        </div>
+                    </summary>
+                    <p class="text-[#677883] text-sm font-normal leading-normal pb-2">
+                        Upon arrival at Kilimanjaro International Airport, you will be met by our representative and
+                        transferred to your hotel in Arusha. Check in and relax after your
+                        journey. Accommodation: Mount Meru Hotel
+                    </p>
+                </details>
+                <details class="flex flex-col rounded-xl bg-[#f1f3f4] px-4 py-2 group day-details-hover">
+                    <summary class="flex cursor-pointer items-center justify-between gap-6 py-2">
+                        <p class="text-[#121517] text-sm font-medium leading-normal">Day 5: Departure</p>
+                        <div class="text-[#121517] group-open:rotate-180" data-icon="CaretDown" data-size="20px"
+                            data-weight="regular">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor"
+                                viewBox="0 0 256 256">
+                                <path
+                                    d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z">
+                                </path>
+                            </svg>
+                        </div>
+                    </summary>
+                    <p class="text-[#677883] text-sm font-normal leading-normal pb-2">
+                        Upon arrival at Kilimanjaro International Airport, you will be met by our representative and
+                        transferred to your hotel in Arusha. Check in and relax after your
+                        journey. Accommodation: Mount Meru Hotel
+                    </p>
+                </details>
+            </div>
+            <h2 class="text-[#121517] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Pricing
+            </h2>
+            <h1 class="text-[#121517] tracking-light text-[32px] font-bold leading-tight px-4 text-left pb-3 pt-6">
+                $5,500</h1>
+            <p class="text-[#121517] text-base font-normal leading-normal pb-3 pt-1 px-4">Total price for 2 adults</p>
+            <div
+                class="p-4 bg-gradient-to-br from-[#eafbe7] via-[#f3f7f0] to-[#e2eafc] rounded-3xl shadow-inner max-w-2xl mx-auto border-2 border-[#bfa14a]/30">
+                <div class="divide-y divide-[#dde1e4]">
+                    <div class="flex justify-between items-center py-4">
+                        <p class="text-[#677883] text-sm font-normal leading-normal">Safari Package</p>
+                        <p class="text-[#121517] text-sm font-normal leading-normal">$4,000</p>
+                    </div>
+                    <div class="flex justify-between items-center py-4">
+                        <p class="text-[#677883] text-sm font-normal leading-normal">Park Fees</p>
+                        <p class="text-[#121517] text-sm font-normal leading-normal">$500</p>
+                    </div>
+                    <div class="flex justify-between items-center py-4">
+                        <p class="text-[#677883] text-sm font-normal leading-normal">Accommodation</p>
+                        <p class="text-[#121517] text-sm font-normal leading-normal">$500</p>
+                    </div>
+                    <div class="flex justify-between items-center py-4">
+                        <p class="text-[#677883] text-sm font-normal leading-normal">Meals</p>
+                        <p class="text-[#121517] text-sm font-normal leading-normal">$300</p>
+                    </div>
+                    <div class="flex justify-between items-center py-4">
+                        <p class="text-[#677883] text-sm font-normal leading-normal">Transportation</p>
+                        <p class="text-[#121517] text-sm font-normal leading-normal">$200</p>
+                    </div>
+                    <!-- Total row with gradient and white text -->
+                    <div
+                        class="flex justify-between items-center px-4 py-5 mt-2 rounded-lg bg-gradient-to-l from-[#388e3c] to-[#bfa14a] shadow-lg border border-[#bfa14a]/60">
+                        <p class="text-white text-base font-bold leading-normal uppercase">Total</p>
+                        <p class="text-white text-base text-2xl font-bold leading-normal text-right">$5,500</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Terms -->
+            <section id="Terms" class="max-w-3xl mx-auto">
+                <h3 class="text-[#1b150d] text-lg font-bold leading-tight tracking-[-0.015em] pb-2 pt-4">Terms &amp;
+                    Conditions</h3>
+                <div class="space-y-2">
+                    <div
+                        class="border-2 border-[#bfa14a]/30 rounded-lg overflow-hidden bg-gradient-to-r from-[#eafbe7] via-[#f3f7f0] to-[#e2eafc]">
+                        <button type="button"
+                            class="w-full flex justify-between items-center px-4 py-3 text-left text-[#1b150d] font-medium focus:outline-none focus:bg-[#f3ede7] bg-[#faf7f2]"
+                            onclick="toggleFaq(this)">
+                            What is the payment and cancellation policy?
+                            <svg class="w-5 h-5 transition-transform duration-200" fill="none" stroke="currentColor"
+                                stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div class="px-4 pb-3 hidden text-[#1b150d] bg-white">
+                            <p>
+                                Please review our payment and cancellation policy carefully before confirming your
+                                safari booking. Details regarding deposits, balance payments, and cancellation fees are
+                                provided upon request.
+                            </p>
+                        </div>
+                    </div>
+                    <div
+                        class="border-2 border-[#bfa14a]/30 rounded-lg overflow-hidden bg-gradient-to-r from-[#eafbe7] via-[#f3f7f0] to-[#e2eafc]">
+                        <button type="button"
+                            class="w-full flex justify-between items-center px-4 py-3 text-left text-[#1b150d] font-medium focus:outline-none focus:bg-[#f3ede7] bg-[#faf7f2]"
+                            onclick="toggleFaq(this)">
+                            Is travel insurance required?
+                            <svg class="w-5 h-5 transition-transform duration-200" fill="none" stroke="currentColor"
+                                stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div class="px-4 pb-3 hidden text-[#1b150d] bg-white">
+                            <p>
+                                Yes, comprehensive travel insurance is highly recommended for all travelers. It should
+                                cover medical emergencies, trip cancellations, and personal belongings.
+                            </p>
+                        </div>
+                    </div>
+                    <div
+                        class="border-2 border-[#bfa14a]/30 rounded-lg overflow-hidden bg-gradient-to-r from-[#eafbe7] via-[#f3f7f0] to-[#e2eafc]">
+                        <button type="button"
+                            class="w-full flex justify-between items-center px-4 py-3 text-left text-[#1b150d] font-medium focus:outline-none focus:bg-[#f3ede7] bg-[#faf7f2]"
+                            onclick="toggleFaq(this)">
+                            Who can I contact for more information?
+                            <svg class="w-5 h-5 transition-transform duration-200" fill="none" stroke="currentColor"
+                                stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div class="px-4 pb-3 hidden text-[#1b150d] bg-white">
+                            <p>
+                                For any inquiries, please contact our dedicated customer service team at <a
+                                    href="mailto:info@safariitinari.com"
+                                    class="text-[#bfa14a] underline">info@safariitinari.com</a>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Contact -->
+            <section id="Contact">
+                <div class="p-4 pb-0 @container">
+                    <div
+                        class="flex flex-1 flex-col items-start justify-between gap-4 rounded-xl border-2 border-[#388e3c]/40 bg-gradient-to-r from-[#eafbe7] via-[#f3f7f0] to-[#e2eafc] p-5 @[480px]:flex-row @[480px]:items-center shadow-lg">
+                        <div class="flex flex-col gap-1">
+                            <p class="text-[#181411] text-base font-bold leading-tight">Contact Us</p>
+                            <p class="text-[#89725d] text-base font-normal leading-normal">For any inquiries or
+                                assistance, please reach out to us.</p>
+                        </div>
+                        <p class="text-[#1b150d] text-base font-normal pb-3">
+                            Email: <a href="mailto:info@safariitinari.com"
+                                class="text-[#bfa14a] underline">info@safariitinari.com</a><br>
+                            Phone: <a href="tel:+1234567890" class="text-[#bfa14a] underline">+1 234 567 890</a>
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer
+            class="text-center pb-4 text-sm font-sans text-[#24713b] bg-gradient-to-r from-[#eafbe7] via-[#f3f7f0] to-[#e2eafc] border-t-2 border-[#bfa14a]/30">
+            &copy; 2025 Safari Itinari. All rights reserved.
+        </footer>
+    </div>
+    <script>
+        // Mobile nav toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileNav = document.getElementById('mobileNav');
+        menuBtn.addEventListener('click', () => {
+            mobileNav.classList.toggle('hidden');
+        });
+        // Hide mobile nav on link click
+        mobileNav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileNav.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+
+</html>

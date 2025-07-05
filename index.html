@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safari Itinari Templates</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Montserrat', Arial, sans-serif;
+            background: #f3efe3;
+            color: #3d2c1e;
+        }
+
+        .hero {
+            background: linear-gradient(rgba(60, 50, 30, 0.6), rgba(60, 50, 30, 0.6)), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+            color: #fff;
+            padding: 90px 20px 60px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero h1 {
+            margin: 0 0 16px 0;
+            font-size: 3.2rem;
+            letter-spacing: 3px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin: 0;
+            text-shadow: 0 1px 6px rgba(0, 0, 0, 0.18);
+        }
+
+        .templates-section {
+            max-width: 1100px;
+            margin: 40px auto 0 auto;
+            padding: 0 20px;
+        }
+
+        .templates-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 36px;
+            color: #7a5c1e;
+            letter-spacing: 1px;
+        }
+
+        .templates-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 36px;
+            justify-content: center;
+            list-style: none;
+            padding: 0;
+        }
+
+        .template-card {
+            background: #fffbe9;
+            border-radius: 18px;
+            box-shadow: 0 4px 18px rgba(122, 92, 30, 0.10);
+            padding: 32px 24px 24px 24px;
+            width: 290px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-align: left;
+            border: 2px solid #e5d7b7;
+            position: relative;
+        }
+
+        .template-card:hover {
+            transform: translateY(-8px) scale(1.04);
+            box-shadow: 0 10px 32px rgba(122, 92, 30, 0.18);
+            border-color: #bfa14a;
+        }
+
+        .template-card img {
+            width: 56px;
+            height: 56px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid #bfa14a;
+            background: #f3efe3;
+            position: absolute;
+            top: -28px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 2px 8px rgba(122, 92, 30, 0.10);
+        }
+
+        .template-card h3 {
+            margin: 36px 0 10px 0;
+            color: #bfa14a;
+            font-size: 1.25rem;
+            text-align: center;
+        }
+
+        .template-card p {
+            margin: 0 0 18px 0;
+            font-size: 1.05rem;
+            color: #5c4a2e;
+            text-align: center;
+        }
+
+        .template-card a {
+            display: block;
+            margin: 0 auto;
+            width: fit-content;
+            padding: 10px 22px;
+            background: linear-gradient(90deg, #bfa14a 0%, #7a5c1e 100%);
+            color: #fff;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.2s, color 0.2s;
+            box-shadow: 0 2px 8px rgba(122, 92, 30, 0.08);
+            letter-spacing: 1px;
+        }
+
+        .template-card a:hover {
+            background: linear-gradient(90deg, #7a5c1e 0%, #bfa14a 100%);
+            color: #fffbe9;
+        }
+
+        footer {
+            margin-top: 70px;
+            background: #3d2c1e;
+            color: #fffbe9;
+            text-align: center;
+            padding: 22px 0;
+            font-size: 1.05rem;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 900px) {
+            .templates-list {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .template-card {
+                width: 90%;
+                min-width: 240px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="hero">
+        <h1>Safari Itinari Templates</h1>
+        <p>Plan your perfect safari adventure with our curated itinerary templates.</p>
+    </div>
+
+    <section class="templates-section">
+        <div class="templates-title">Available Templates</div>
+        <ul class="templates-list">
+            <li class="template-card">
+                <img src="https://cdn.pixabay.com/photo/2021/08/01/17/31/path-6514885_1280.jpg"
+                    alt="Classic Safari Itinerary">
+                <h3>Classic Safari Itinerary</h3>
+                <p>A timeless, clean safari itinerary template with clear day plans and essential trip details — perfect
+                    for any traveler.</p>
+                <a href="template1.html">View Template</a>
+            </li>
+
+            <li class="template-card">
+                <img src="https://cdn.pixabay.com/photo/2022/01/17/06/38/altai-6943982_1280.jpg"
+                    alt="Detailed Safari Itinerary">
+                <h3>Detailed Safari Itinerary</h3>
+                <p>A fully detailed safari itinerary template covering daily activities, accommodation, game drives, and
+                    all travel segments.</p>
+                <a href="template2.html">View Template</a>
+            </li>
+
+            <li class="template-card">
+                <img src="https://cdn.pixabay.com/photo/2017/11/15/13/27/river-2951997_1280.jpg"
+                    alt="Budget Safari Itinerary">
+                <h3>Budget Safari Itinerary</h3>
+                <p>An affordable safari itinerary plan — focus on value, essentials, and practical day-by-day details
+                    for budget travelers.</p>
+                <a href="template3.html">View Template</a>
+            </li>
+
+            <li class="template-card">
+                <img src="https://cdn.pixabay.com/photo/2025/05/14/10/09/bridge-9599215_1280.jpg"
+                    alt="Luxury Safari Itinerary">
+                <h3>Luxury Safari Itinerary</h3>
+                <p>A premium safari itinerary design with elegant styling, luxury stays, and exclusive experiences for
+                    high-end clients.</p>
+                <a href="template4.html">View Template</a>
+            </li>
+        </ul>
+
+    </section>
+
+    <footer>
+        &copy; 2025 Safari Itinari. All rights reserved.
+    </footer>
+</body>
+
+</html>
